@@ -4,7 +4,7 @@ This repository provides a guide and codebase for building a realtime streaming 
 
 ## System Architecture Overview
 
-![](system-architecture.png)
+![](system-architecture(2).png)
 
 The system architecture utilizes Spark Streaming for real-time data processing. It incorporates various components for data ingestion, processing, transformation, and storage, including AWS S3 for data storage and AWS Glue for data cataloging.
 
