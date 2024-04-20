@@ -4,63 +4,31 @@ This repository provides a guide and codebase for building a realtime streaming 
 
 ## System Architecture Overview
 
-![](system-architecture(2).png)
+![](system-architecture.png)
 
 The system architecture utilizes Spark Streaming for real-time data processing. It incorporates various components for data ingestion, processing, transformation, and storage, including AWS S3 for data storage and AWS Glue for data cataloging.
 
-## System Architecture Design
+- **Spark Cluster**: Deployed using Docker containers for distributed computation.
+- **AWS S3**: Used for storing input data and processed results.
+- **AWS Glue**: Employed for cataloging data stored in S3.
+- **AWS Athena**: Used for querying and verifying cataloged data.
 
-The architecture is designed to handle the streaming of unstructured data from multiple sources. It includes modules for data schema creation, custom user-defined functions for data extraction, parsing and structuring of text data, integration with AWS services for storage and cataloging, and deployment on Spark clusters.
+  
+## Getting Started
 
-## Setting up Spark Streaming for Unstructured Data
+To set up and run the project locally, follow these steps:
 
-- Install Apache Spark and set up a Spark cluster for streaming data processing.
-- Configure Spark Streaming environment for real-time data ingestion and processing.
+1. Clone this repository to your local machine.
+2. Install Docker and Docker Compose if not already installed.
+3. Update the configuration parameters in `config/config.py` with your AWS credentials and input/output paths.
+4. Run `docker-compose up` to start the Spark cluster.
+5. Execute the Spark streaming application by running `python main.py`.
+6. Monitor the application's progress through the console output and AWS S3.
 
-## Handling multiple unstructured data types
+## Usage
 
-Implement mechanisms to handle various unstructured data types such as TEXT, IMAGE, VIDEO, CSV, JSON, and PDF efficiently within the Spark Streaming pipeline.
+The main entry point of the project is `main.py`. It sets up the Spark session, defines UDFs, reads data streams, applies transformations, and writes the processed data to the console and S3.
 
-## Creating data schema
+To add additional functionalities or modify existing ones, you can edit the UDFs in `udf_utils.py` or update the Spark application logic in `main.py`.
 
-Define appropriate data schemas to organize and structure the incoming unstructured data streams.
 
-## Creating custom user define functions for data extraction
-
-Develop custom user-defined functions (UDFs) to extract relevant information from different unstructured data types.
-
-## Parsing and extracting text data
-
-Implement parsers and text extraction methods to process textual data extracted from unstructured sources.
-
-## Structuring the results into a dataframe
-
-Organize the extracted data into structured DataFrames for further processing and analysis.
-
-## Reading JSON structured files into the streams
-
-Integrate modules to read JSON structured files directly into the streaming pipeline.
-
-## Joining Structured and Unstructured Data Streams
-
-Merge structured and unstructured data streams using appropriate join operations to enrich the data.
-
-## Writing Data to AWS S3 Bucket
-
-Configure Spark Streaming to write the processed data to an AWS S3 bucket for storage and further analysis.
-
-## Creating AWS Glue Crawler for the data
-
-Set up AWS Glue Crawler to automatically discover and catalog the data stored in the S3 bucket.
-
-## Verifying the crawler results on Athena
-
-Verify the cataloging results by querying the data using AWS Athena.
-
-## Deploying Spark Streams to Spark Clusters
-
-Deploy the Spark Streaming pipeline onto Spark clusters for scalable and distributed real-time data processing.
-
-## Verification of Results
-
-Perform comprehensive testing and verification of the pipeline to ensure the accuracy and reliability of the results generated.
