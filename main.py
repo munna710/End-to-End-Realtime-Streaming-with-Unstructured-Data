@@ -62,6 +62,8 @@ if __name__ == "__main__":
                         .option('wholetext','true')
                         .load(text_input_dir) )
     #job_bulletins_df.show()
+    json_df = spark.readStream.json(json_input_dir, schema=data_schema, multiLine=True)
+
     job_bulletins_df = job_bulletins_df.withColumn('file_name', udf['extract_file_name_udf'](job_bulletins_df['value'])) 
     job_bulletins_df = job_bulletins_df.withColumn('value',regexp_replace('value',r'\n',' '))
     job_bulletins_df = job_bulletins_df.withColumn('position', udf['extract_position_udf'](job_bulletins_df['value']))
@@ -80,11 +82,23 @@ if __name__ == "__main__":
 
     j_df = job_bulletins_df.select('file_name','position','salary','start_date','end_date','req','notes','duties','selection','education_length','school_type','experience_length','job_type','application_location')
 
+    json_df = json_df.select('file_name','position','salary','start_date','end_date','req','notes','duties','selection','education_length','school_type','experience_length','job_type','application_location')
+
+    union_dataframe = j_df.union(json_df)
+    
     query = (job_bulletins_df
             .writeSteam
             .outputMode('append')
             .format('console')
             .start()
             )
-
+    def streamWriter(df, output_dir):
+        return(input.writeSteam.format('parquet')
+        .option('checkpointLocation',checkpointFolder)
+        .option('path',output)
+        .outputMode('append')
+        .trigger(processingTime='5 seconds')
+        .start())
+    query = streamWriter(union_dataframe, 's3a://spark-unstructured-streaming/checkpoints/','s3a://spark-unstructured-streaming/data/spark-unstructured')
+    
     query.awaitTermination()
