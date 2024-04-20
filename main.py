@@ -62,6 +62,23 @@ if __name__ == "__main__":
                         .option('wholetext','true')
                         .load(text_input_dir) )
     #job_bulletins_df.show()
+    job_bulletins_df = job_bulletins_df.withColumn('file_name', udf['extract_file_name_udf'](job_bulletins_df['value'])) 
+    job_bulletins_df = job_bulletins_df.withColumn('value',regexp_replace('value',r'\n',' '))
+    job_bulletins_df = job_bulletins_df.withColumn('position', udf['extract_position_udf'](job_bulletins_df['value']))
+    job_bulletins_df = job_bulletins_df.withColumn('salary', udf['extract_salary_udf'](job_bulletins_df['value']))
+    job_bulletins_df = job_bulletins_df.withColumn('start_date', udf['extract_date_udf'](job_bulletins_df['value']))
+    job_bulletins_df = job_bulletins_df.withColumn('end_date', udf['extract_date_udf'](job_bulletins_df['value']))
+    job_bulletins_df = job_bulletins_df.withColumn('req', udf['extract_requirements_udf'](job_bulletins_df['value']))
+    job_bulletins_df = job_bulletins_df.withColumn('notes', udf['extract_notes_udf'](job_bulletins_df['value']))
+    job_bulletins_df = job_bulletins_df.withColumn('duties', udf['extract_duties_udf'](job_bulletins_df['value']))
+    job_bulletins_df = job_bulletins_df.withColumn('selection', udf['extract_selection_udf'](job_bulletins_df['value']))
+    job_bulletins_df = job_bulletins_df.withColumn('education_length', udf['extract_education_length_udf'](job_bulletins_df['value']))
+    job_bulletins_df = job_bulletins_df.withColumn('school_type', udf['extract_school_type_udf'](job_bulletins_df['value']))
+    job_bulletins_df = job_bulletins_df.withColumn('experience_length', udf['extract_experience_length_udf'](job_bulletins_df['value']))
+    job_bulletins_df = job_bulletins_df.withColumn('job_type', udf['extract_job_type_udf'](job_bulletins_df['value']))
+    job_bulletins_df = job_bulletins_df.withColumn('application_location', udf['extract_application_location_udf'](job_bulletins_df['value']))
+
+    j_df = job_bulletins_df.select('file_name','position','salary','start_date','end_date','req','notes','duties','selection','education_length','school_type','experience_length','job_type','application_location')
 
     query = (job_bulletins_df
             .writeSteam
