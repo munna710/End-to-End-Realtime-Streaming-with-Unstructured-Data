@@ -5,20 +5,20 @@ from udfs.udfs import *
 
 def define_udfs():
     return {
-        'extract_file_name_udf': udf(extract_file_name, StringType()),
-        'extract_position_udf': udf(extract_position, StringType()),
-        'extract_classcode_udf': udf(extract_classcode, StringType()),
-        'extract_salary_udf': udf(extract_salary, DoubleType()),
-        'extract_date_udf': udf(extract_date, StringType()),
-        'extract_requirements_udf': udf(extract_requirements, StringType()),
-        'extract_notes_udf': udf(extract_notes, StringType()),
-        'extract_duties_udf': udf(extract_duties, StringType()),
-        'extract_selection_udf': udf(extract_selection, StringType()),
-        'extract_education_length_udf': udf(extract_education_length, StringType()),
-        'extract_school_type_udf': udf(extract_school_type, StringType()),
-        'extract_experience_length_udf': udf(extract_experience_length, StringType()),
-        'extract_job_type_udf': udf(extract_job_type, StringType()),
-        'extract_application_location_udf': udf(extract_application_location, StringType())
+        'extract_file_name_udf': udfs(extract_file_name, StringType()),
+        'extract_position_udf': udfs(extract_position, StringType()),
+        'extract_classcode_udf': udfs(extract_classcode, StringType()),
+        'extract_salary_udf': udfs(extract_salary, DoubleType()),
+        'extract_date_udf': udfs(extract_date, StringType()),
+        'extract_requirements_udf': udfs(extract_requirements, StringType()),
+        'extract_notes_udf': udfs(extract_notes, StringType()),
+        'extract_duties_udf': udfs(extract_duties, StringType()),
+        'extract_selection_udf': udfs(extract_selection, StringType()),
+        'extract_education_length_udf': udfs(extract_education_length, StringType()),
+        'extract_school_type_udf': udfs(extract_school_type, StringType()),
+        'extract_experience_length_udf': udfs(extract_experience_length, StringType()),
+        'extract_job_type_udf': udfs(extract_job_type, StringType()),
+        'extract_application_location_udf': udfs(extract_application_location, StringType())
         }
 
 if __name__ == "__main__":
