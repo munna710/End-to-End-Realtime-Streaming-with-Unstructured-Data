@@ -1,6 +1,6 @@
 # Realtime Streaming Pipeline for Unstructured Data
 
-This repository provides a guide and codebase for building a realtime streaming pipeline capable of handling various unstructured data types such as TEXT, IMAGE, VIDEO, CSV, JSON, and PDF. The pipeline is designed to process over 600+ different datasets in real-time. Below are the detailed steps to set up and deploy the pipeline.
+This repository provides a guide and codebase for building a realtime streaming pipeline capable of handling various unstructured data types such as TEXT, IMAGE, VIDEO, CSV, JSON, and PDF. The pipeline is designed to process over 600+ different datasets in real-time. 
 
 ## System Architecture Overview
 
